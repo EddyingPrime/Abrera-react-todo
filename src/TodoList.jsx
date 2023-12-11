@@ -20,6 +20,7 @@ const TodoList = () => {
       const storedTasks = JSON.parse(localStorage.getItem("tasks")) || [];
       console.log("Loaded tasks:", storedTasks);
       setTasks(storedTasks);
+      console.log(storedTasks);
     } catch (error) {
       console.error("Error loading tasks from localStorage:", error);
     }
@@ -100,7 +101,7 @@ const TodoList = () => {
               <td className="border p-2">
                 <button
                   type="submit"
-                  className="bg-blue-700 text-white px-2 py-1 rounded"
+                  className="bg-blue-600 text-white px-2 py-1 rounded"
                 >
                   Add Task
                 </button>
@@ -120,14 +121,17 @@ const TodoList = () => {
           </tr>
         </thead>
         <tbody>
-          {tasks.map((task) => (
-            <TodoItem
-              key={task.id}
-              task={task}
-              updateTask={updateTask}
-              deleteTask={deleteTask}
-            />
-          ))}
+          {tasks
+            .slice()
+            .reverse()
+            .map((task) => (
+              <TodoItem
+                key={task.id}
+                task={task}
+                updateTask={updateTask}
+                deleteTask={deleteTask}
+              />
+            ))}
         </tbody>
       </table>
     </div>
